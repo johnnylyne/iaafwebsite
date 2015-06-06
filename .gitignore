@@ -51,3 +51,8 @@ nbproject/
 test/coverage/
 modules/public/
 modules/views/
+
+#
+# Local Files
+#
+johnny/

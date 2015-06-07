@@ -1,12 +1,19 @@
+#!/usr/bin/env node
+
 'use strict';
 
-// Requires meanio
-var mean = require('meanio');
+// set up ======================================================================
+var express = require('express');
+var app = express(); // create our app w/ express
+var ipaddress = process.env.OPENSHIFT_NODEJS_IP || "localhost";
+var port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
 
-// Creates and serves mean application
-mean.serve({ /*options placeholder*/ }, function(app, config) {
-  console.log('Mean app started on port ' + config.http.port + ' (' + process.env.NODE_ENV + ')');
-  if(config.https && config.https.port){
-    console.log('Mean secure app started on port ' + config.https.port + ' (' + process.env.NODE_ENV + ')');
-  }
+// configuration ===============================================================
+app.use('/', express.static(__dirname + '/public'));
+
+// routes ======================================================================
+
+// listen (start app with node server.js) ======================================
+app.listen(port, ipaddress, function() {
+    console.info('%s: Node server started on %s:%d ...', Date(Date.now()), ipaddress, port);
 });
